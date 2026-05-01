@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Artechix Strat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+    }
+
+    header {
+      background: #111827;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .container {
+      padding: 40px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .card {
+      background: #1f2937;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 6px;
+      margin-bottom: 12px;
+      border-radius: 6px;
+      border: none;
+    }
+
+    button {
+      background: #ef4444;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #dc2626;
+    }
+
+    .result {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<header>ARTECHIX STRAT</header>
+
+<div class="container">
+
+  <div class="card">
+    <h2>Fuel Strategy Calculator</h2>
+
+    <label>Race Length (laps)</label>
+    <input type="number" id="raceLength">
+
+    <label>Fuel Per Lap (liters)</label>
+    <input type="number" id="fuelPerLap">
+
+    <label>Tank Size (liters)</label>
+    <input type="number" id="tankSize">
+
+    <label>Fuel Margin (liters)</label>
+    <input type="number" id="fuelMargin">
+
+    <button onclick="calculate()">Calculate Strategy</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+</div>
+
+<script>
+function calculate() {
+  const raceLength = parseFloat(document.getElementById("raceLength").value);
+  const fuelPerLap = parseFloat(document.getElementById("fuelPerLap").value);
+  const tankSize = parseFloat(document.getElementById("tankSize").value);
+  const fuelMargin = parseFloat(document.getElementById("fuelMargin").value);
+
+  if (!raceLength || !fuelPerLap || !tankSize) {
+    alert("Fill all required fields");
+    return;
+  }
+
+  const totalFuelNeeded = (raceLength * fuelPerLap) + (fuelMargin || 0);
+  const stops = Math.ceil(totalFuelNeeded / tankSize) - 1;
+
+  document.getElementById("result").innerText =
+    "Total Fuel Needed: " + totalFuelNeeded.toFixed(2) + " L | Estimated Stops: " + stops;
+}
+</script>
+
+</body>
+</html>
