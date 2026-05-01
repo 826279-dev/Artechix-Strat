@@ -1,1 +1,0 @@
-# Artechix-Strat
