@@ -84,6 +84,7 @@
     <input type="number" id="fuelMargin">
 
     <button onclick="calculate()">Calculate Strategy</button>
+    <button onclick="saveStrategy()">Save Strategy</button>
 
     <div class="result" id="result"></div>
   </div>
@@ -92,6 +93,26 @@
 
 <script>
 function calculate() {
+  async function saveStrategy() {
+  const data = {
+    raceLength: document.getElementById("raceLength").value,
+    fuelPerLap: document.getElementById("fuelPerLap").value,
+    tankSize: document.getElementById("tankSize").value,
+    fuelMargin: document.getElementById("fuelMargin").value,
+    time: new Date().toISOString()
+  };
+
+  const res = await fetch("/api/save", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  });
+
+  const result = await res.json();
+  alert(result.message + " | Total saved: " + result.total);
+}
   const raceLength = parseFloat(document.getElementById("raceLength").value);
   const fuelPerLap = parseFloat(document.getElementById("fuelPerLap").value);
   const tankSize = parseFloat(document.getElementById("tankSize").value);
